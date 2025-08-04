@@ -1,47 +1,210 @@
-## Getting Started
+# Online Vacation Class Registration System
 
-This document is intended to get you started quickly in building a backend driven Node.js application complete with pages and content, backend logic and a PostgreSQL database for data storage.
-## Prerequisites
+A modern, responsive web application for registering students in vacation classes with integrated payment processing via Flutterwave.
 
-The only prerequisite software required to have installed at this point is Git for version control and a code editor - we will use VS Code (VSC).
+## Features
 
-## Package Management
+### 📚 **Subject Selection**
+- 14 available subjects including:
+  - English Language, Mathematics, Integrated Science
+  - Social Studies, Literature in English, Government
+  - History, Economics, Geography, French
+  - Christian Religious Studies (CRS), Accounting
+  - Business Management, Principles of Cost Accounting
 
-The foundation of the project development software is Node. While functional, Node depends on "packages" to add functionality to accomplish common tasks. This requires a package manager. Three common managers are NPM (Node Package Manager), YARN, and PNPM. While all do the same thing, they do it slightly differently. We will use PNPM for two reasons: 1) All packages are stored on your computer only once and then symlinks (system links) are created from the package to the project as needed, 2) performance is increased meaning that when the project builds, it does so faster.
-You will need to either install or activate PNPM before using it. See https://pnpm.io/
+### 💰 **Dynamic Pricing**
+- Flexible pricing structure based on number of subjects:
+  - 1 Subject: GH₵200
+  - 2 Subjects: GH₵300
+  - 3 Subjects: GH₵400
+  - 4 Subjects: GH₵450
+  - 5 Subjects: GH₵550
+  - 6 Subjects: GH₵600
+  - 7+ Subjects: GH₵700
 
-## Install the Project Dependencies
+### 👨‍👩‍👧‍👦 **Comprehensive Registration**
+- Student information collection
+- Parent/Guardian details
+- Grade/Class selection (Primary 1 - SSS 3)
+- Contact information and address
 
-1. Open the downloaded project folder (where this file is located) in VS Code (VSC).
-2. Open the VSC terminal: Terminal > New Window.
-3. Run the following command in the terminal:
+### 💳 **Payment Integration**
+- **Card Payments**: Visa, Mastercard
+- **Mobile Money**: MTN, Vodafone, AirtelTigo
+- Powered by Flutterwave payment gateway
+- Secure transaction processing
 
-    pnpm install
+### ✨ **Modern UI/UX**
+- Responsive design for all devices
+- Beautiful gradient backgrounds
+- Interactive form elements
+- Real-time validation
+- Smooth animations and transitions
 
-4. The first time it may take a few minutes, depending on the speed of your computer and the speed of your Internet connection. This command will instruct PNPM to read the package.json file and download and install the dependencies (packages) needed for the project. It will build a "node_modules" folder storing each dependency and its dependencies. It should also create a pnpm-lock.yaml file. This file should NEVER be altered by you. It is an internal file (think of it as an inventory) that PNPM uses to keep track of everything in the project.
+## Setup Instructions
 
-## Start the Express Server
+### 1. **File Structure**
+```
+vacation-class-registration/
+├── index.html          # Main HTML file
+├── styles.css          # CSS styling
+├── script.js           # JavaScript functionality
+└── README.md          # Documentation
+```
 
-With the packages installed you're ready to run the initial test.
-1. If the VSC terminal is still open use it. If it is closed, open it again using the same command as before.
-2. Type the following command, then press Enter:
+### 2. **Flutterwave Configuration**
 
-    pnpm run dev
+To enable payment processing, you need to configure Flutterwave:
 
-3. If the command works, you should see the message "app listening on localhost:5500" in the console.
-4. Open the package.json file.
-5. Note the "Scripts" area? There is a line with the name of "dev", which tells the nodemon package to run the server.js file.
-6. This is the command you just ran.
-7. Open the server.js file.
-8. Near the bottom you'll see two variables "Port" and "Host". The values for the variables are stored in the .env file.
-9. These variables are used when the server starts on your local machine.
+1. **Sign up** at [Flutterwave](https://flutterwave.com/)
+2. **Get your API keys** from the dashboard
+3. **Update the public key** in `script.js`:
 
-## Move the demo file
+```javascript
+// Replace this line in script.js (around line 200)
+public_key: "FLWPUBK_TEST-XXXXXXXXXXXXXXXXXXXXXXXXXXXX-X",
+// With your actual public key:
+public_key: "FLWPUBK_TEST-your-actual-public-key-here",
+```
 
-When you installed Git and cloned the remote repository in week 1, you should have created a simple web page.
-1. Find and move that simple web page to the public folder. Be sure to note its name.
-## Test in a browser
+### 3. **Testing Payments**
 
-1. Go to http://localhost:5500 in a browser tab. Nothing should be visible as the server has not been setup to repond to that route.
-2. Add "/filename.html" to the end of the URL (replacing filename with the name of the file you moved to the public folder).
-3. You should see that page in the browser.
+For testing purposes, use Flutterwave's test credentials:
+- **Test Card**: 4187427415564246
+- **CVV**: 828
+- **Expiry**: 09/32
+- **PIN**: 3310
+
+For mobile money testing, use test phone numbers provided in Flutterwave documentation.
+
+### 4. **Deployment**
+
+#### **Option 1: Local Development**
+1. Clone or download the files
+2. Open `index.html` in a web browser
+3. Start registering students!
+
+#### **Option 2: Web Hosting**
+1. Upload all files to your web hosting provider
+2. Ensure HTTPS is enabled (required for payment processing)
+3. Update Flutterwave settings to use production keys
+
+## Configuration Options
+
+### **Pricing Structure**
+To modify pricing, edit the `pricingStructure` object in `script.js`:
+
+```javascript
+const pricingStructure = {
+    1: 200,    // 1 subject price
+    2: 300,    // 2 subjects price
+    3: 400,    // 3 subjects price
+    4: 450,    // 4 subjects price
+    5: 550,    // 5 subjects price
+    6: 600,    // 6 subjects price
+    7: 700     // 7+ subjects price
+};
+```
+
+### **Adding/Removing Subjects**
+To modify available subjects, edit the subjects grid in `index.html`:
+
+```html
+<div class="subject-item">
+    <input type="checkbox" id="new-subject" name="subjects" value="New Subject Name">
+    <label for="new-subject">New Subject Name</label>
+</div>
+```
+
+### **Customizing Appearance**
+- **Colors**: Modify CSS variables in `styles.css`
+- **Fonts**: Update the font-family in the body selector
+- **Logo**: Replace the logo URL in the Flutterwave configuration
+
+## Browser Support
+
+- ✅ Chrome 60+
+- ✅ Firefox 55+
+- ✅ Safari 12+
+- ✅ Edge 79+
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Security Features
+
+- ✅ Form validation (client-side and server-side ready)
+- ✅ Secure payment processing via Flutterwave
+- ✅ XSS protection through proper input handling
+- ✅ HTTPS enforcement for payment processing
+
+## API Integration
+
+The system is designed to easily integrate with a backend API. Key integration points:
+
+### **Registration Data Structure**
+```javascript
+{
+    studentName: "John Doe",
+    age: 15,
+    grade: "sss1",
+    parentName: "Jane Doe", 
+    relationship: "parent",
+    email: "jane@example.com",
+    phone: "+233123456789",
+    address: "123 Main St, Accra",
+    subjects: ["Mathematics", "English Language"],
+    totalAmount: 300,
+    paymentReference: "VCS-1234567890-123",
+    paymentId: "flw_tx_ref_123",
+    paymentStatus: "successful",
+    registrationDate: "2024-01-15T10:30:00.000Z"
+}
+```
+
+### **Webhook Handling**
+For production use, implement webhook handling to verify payments:
+
+```javascript
+// Example webhook endpoint
+app.post('/webhook/flutterwave', (req, res) => {
+    const signature = req.headers['verif-hash'];
+    const payload = req.body;
+    
+    // Verify webhook signature
+    // Update registration status
+    // Send confirmation email
+});
+```
+
+## Troubleshooting
+
+### **Payment Issues**
+- Ensure you're using the correct Flutterwave public key
+- Check that HTTPS is enabled for production
+- Verify test credentials for development
+
+### **Form Validation**
+- All required fields must be filled
+- Email must be in valid format
+- Phone number must be at least 10 digits
+- At least one subject must be selected
+
+### **Mobile Display**
+- The system is fully responsive
+- Test on various screen sizes
+- Ensure touch targets are appropriate
+
+## Support
+
+For technical support or questions:
+- Check the browser console for error messages
+- Verify Flutterwave configuration
+- Ensure all files are properly uploaded
+- Test with different browsers
+
+## License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Note**: Remember to replace the test Flutterwave public key with your actual production key before going live!
